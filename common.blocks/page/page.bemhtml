@@ -12,8 +12,8 @@ block('page').def()(function() {
             { elem : 'meta', attrs : { property : 'og:locale', content : 'ru_RU' } },
             { elem : 'meta', attrs : { property : 'og:title', content : ctx.title || 'page.title' } },
             { elem : 'meta', attrs : { property : 'og:description', content : ctx.description || 'description' } },
-            { elem : 'meta', attrs : { property : 'og:url', content : baseUrl + page.url || 'http://d' } },
-            { elem : 'meta', attrs : { property : 'og:image', content : baseUrl + page.image || this.data.baseUrl + '/social.jpg' } },
+            { elem : 'meta', attrs : { property : 'og:url', content : baseUrl + ctx.url || 'http://d' } },
+            { elem : 'meta', attrs : { property : 'og:image', content : baseUrl + ctx.image || this.data.baseUrl + '/social.jpg' } },
             { elem : 'meta', attrs : { property : 'og:type', content : 'website' } },
             { elem : 'meta', attrs : { property : 'og:site_name', content : 'site' } }
         ],
@@ -30,7 +30,8 @@ block('page').def()(function() {
                 elem : 'header'
             },
             {
-                elem : 'content'
+                elem : 'content',
+                content : this.ctx.content
             },
             {
                 elem : 'footer'

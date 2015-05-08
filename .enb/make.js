@@ -37,7 +37,7 @@ module.exports = function(config) {
 
     function configurePages(platforms) {
         platforms.forEach(function(platform) {
-            var nodes = [platform + '.bundles/*'];
+            var nodes = [platform + '.pages/*'];
 
             config.nodes(nodes, function(nodeConfig) {
                 nodeConfig.addTech([techs.files.provide, { target : '?.bemjson.js' }]);
