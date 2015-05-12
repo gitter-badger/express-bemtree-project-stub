@@ -40,7 +40,7 @@ module.exports = function(config) {
             var nodes = [platform + '.pages/*'];
 
             config.nodes(nodes, function(nodeConfig) {
-                nodeConfig.addTech([techs.files.provide, { target : '?.bemjson.js' }]);
+                nodeConfig.addTech([techs.files.provide, { target : '?.bemdecl.js' }]);
             });
 
             configureNodes(platform, nodes);
@@ -55,7 +55,6 @@ module.exports = function(config) {
 
             // Base techs
             nodeConfig.addTechs([
-                [techs.bem.bemjsonToBemdecl],
                 [techs.bem.depsOld],
                 [techs.bem.files]
             ]);
@@ -63,7 +62,6 @@ module.exports = function(config) {
             // Client techs
             nodeConfig.addTechs([
                 [techs.css.stylusWithAutoprefixer, { browsers : getBrowsers(platform) }],
-                [techs.css.stylus, { target : '?.ie.css', sourceSuffixes : ['styl', 'ie.styl'] }],
                 [techs.js, {
                     filesTarget : '?.js.files'
                 }],
@@ -124,18 +122,20 @@ module.exports = function(config) {
 
             // Build htmls
             nodeConfig.addTechs([
-                [techs.engines.bemhtml, { devMode : false }],
-                [techs.html.bemhtml]
+                [techs.engines.bemtree, { devMode : false }],
+                [techs.engines.bemhtml, { devMode : false }]
             ]);
 
             nodeConfig.addTargets([
-                '_?.css', '_?.js', '?.html'
+                '_?.css', '_?.js', '_?.bemhtml.js', '_?.bemtree.js'
             ]);
         });
 
         config.mode('development', function() {
             config.nodes(nodes, function(nodeConfig) {
                 nodeConfig.addTechs([
+                    [techs.borschik, { sourceTarget: '?.bemtree.js', destTarget: '_?.bemtree.js', freeze: true, minify: false }],
+                    [techs.borschik, { sourceTarget: '?.bemhtml.js', destTarget: '_?.bemhtml.js', freeze: true, minify: false }],
                     [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, minify : false }],
                     [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : false }]
                 ]);
@@ -145,6 +145,8 @@ module.exports = function(config) {
         config.mode('production', function() {
             config.nodes(nodes, function(nodeConfig) {
                 nodeConfig.addTechs([
+                    [techs.borschik, { sourceTarget: '?.bemtree.js', destTarget: '_?.bemtree.js', freeze: true, minify: true }],
+                    [techs.borschik, { sourceTarget: '?.bemhtml.js', destTarget: '_?.bemhtml.js', freeze: true, minify: true }],
                     [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, tech : 'cleancss', minify : true }],
                     [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : true }]
                 ]);

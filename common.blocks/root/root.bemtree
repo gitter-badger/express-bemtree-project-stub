@@ -1,19 +1,26 @@
-block('page').def()(function() {
-
+block('root').def()(function() {
     var ctx = this.ctx;
-    var baseUrl = 'http://baseUrl';
+    // пробрасываем data вглубь по дереву
+    this.data = ctx.data;
 
+    this.data.baseUrl = 'http://baseUrl';
+
+    // если задан context — требуется отрендерить не целую страницу, а лишь эту конкретную часть
+    if (ctx.context) return applyCtx(ctx.context);
+
+    // иначе рендерим весь page целиком
     return applyCtx({
         block : 'page',
         favicon : '/favicon.ico',
+        mods : { view : this.data.view },
         head : [
             { elem : 'meta', attrs : { name : 'viewport', content : 'width=1000' } },
-            { elem : 'meta', attrs : { name : 'description', content : ctx.description } },
+            { elem : 'meta', attrs : { name : 'description', content : this.data.description } },
             { elem : 'meta', attrs : { property : 'og:locale', content : 'ru_RU' } },
-            { elem : 'meta', attrs : { property : 'og:title', content : ctx.title || 'page.title' } },
-            { elem : 'meta', attrs : { property : 'og:description', content : ctx.description || 'description' } },
-            { elem : 'meta', attrs : { property : 'og:url', content : baseUrl + ctx.url || 'http://d' } },
-            { elem : 'meta', attrs : { property : 'og:image', content : baseUrl + ctx.image || this.data.baseUrl + '/social.jpg' } },
+            { elem : 'meta', attrs : { property : 'og:title', content : this.data.title || 'page.title' } },
+            { elem : 'meta', attrs : { property : 'og:description', content : this.data.description || 'description' } },
+            { elem : 'meta', attrs : { property : 'og:url', content : this.data.baseUrl + this.data.url || 'http://d' } },
+            { elem : 'meta', attrs : { property : 'og:image', content : this.data.baseUrl + this.data.image || this.data.baseUrl + '/social.jpg' } },
             { elem : 'meta', attrs : { property : 'og:type', content : 'website' } },
             { elem : 'meta', attrs : { property : 'og:site_name', content : 'site' } }
         ],

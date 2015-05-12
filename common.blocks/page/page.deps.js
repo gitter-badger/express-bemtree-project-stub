@@ -10,7 +10,7 @@
                     'error'
                 ]
             },
-            elems : ['header', 'footer']
+            elems : ['header', 'content', 'footer']
         }
     ]
 })
