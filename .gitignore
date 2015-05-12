@@ -28,13 +28,13 @@ npm-debug.log
 
 ### BEM ###
 libs/*
-*pages*/*/*.*
-!*pages/*/*.bemdecl.js
-*pages*/*/*.bemhtml.bemdecl.js
-*pages*/*/*.js-js.bemdecl.js
-*pages*/*/*.js.bemdecl.js
-*pages*/*/*.template.bemdecl.js
-!*pages/*/*.bemjson.js
+*bundles*/*/*.*
+!*bundles/*/*.bemdecl.js
+*bundles*/*/*.bemhtml.bemdecl.js
+*bundles*/*/*.js-js.bemdecl.js
+*bundles*/*/*.js.bemdecl.js
+*bundles*/*/*.template.bemdecl.js
+!*bundles/*/*.bemjson.js
 .enb/tmp/
 
 ### PROJECT ###

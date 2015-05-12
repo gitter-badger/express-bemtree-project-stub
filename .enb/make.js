@@ -33,11 +33,11 @@ var LIB_NAME = 'bem-components',
 module.exports = function(config) {
     var platforms = Object.keys(PLATFORMS);
 
-    configurePages(platforms);
+    configureBundles(platforms);
 
-    function configurePages(platforms) {
+    function configureBundles(platforms) {
         platforms.forEach(function(platform) {
-            var nodes = [platform + '.pages/*'];
+            var nodes = [platform + '.bundles/*'];
 
             config.nodes(nodes, function(nodeConfig) {
                 nodeConfig.addTech([techs.files.provide, { target : '?.bemdecl.js' }]);
