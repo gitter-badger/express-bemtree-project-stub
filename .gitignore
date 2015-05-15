@@ -41,5 +41,4 @@ libs/*
 public/freeze
 public/_index.*
 public/uploads
-migrations/.migrate
 logs/*

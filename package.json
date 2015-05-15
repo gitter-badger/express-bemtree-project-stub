@@ -1,10 +1,10 @@
 {
   "author": "voischev",
-  "name": "project-stub",
+  "name": "express-bemtree-project-stub",
   "version": "0.0.0",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/voischev/project-stub"
+    "url": "https://github.com/voischev/express-bemtree-project-stub"
   },
   "engines": {
     "node": ">=0.10"

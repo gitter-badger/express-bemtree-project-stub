@@ -1,5 +1,3 @@
-// var bundles = ['client'];
-
 var techs = {
     files : {
         provide : require('enb/techs/file-provider'),

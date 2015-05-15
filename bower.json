@@ -1,7 +1,7 @@
 {
-  "name": "project-stub",
+  "name": "express-bemtree-project-stub",
   "version": "0.0.0",
-  "description": "",
+  "description": "bem express bemtree bemhtml",
   "ignore": [
     ".bem/cache",
     "node_modules",
