@@ -3,8 +3,6 @@ block('root').def()(function() {
     // пробрасываем data вглубь по дереву
     this.data = ctx.data;
 
-    this.data.baseUrl = 'http://baseUrl';
-
     // если задан context — требуется отрендерить не целую страницу, а лишь эту конкретную часть
     if (ctx.context) return applyCtx(ctx.context);
 
@@ -19,30 +17,16 @@ block('root').def()(function() {
             { elem : 'meta', attrs : { property : 'og:locale', content : 'ru_RU' } },
             { elem : 'meta', attrs : { property : 'og:title', content : this.data.title || 'page.title' } },
             { elem : 'meta', attrs : { property : 'og:description', content : this.data.description || 'description' } },
-            { elem : 'meta', attrs : { property : 'og:url', content : this.data.baseUrl + this.data.url || 'http://d' } },
-            { elem : 'meta', attrs : { property : 'og:image', content : this.data.baseUrl + this.data.image || this.data.baseUrl + '/social.jpg' } },
+            { elem : 'meta', attrs : { property : 'og:url', content : this.data.settings.baseUrl + (this.data.url || '')} },
+            { elem : 'meta', attrs : { property : 'og:image', content : this.data.settings.baseUrl + (this.data.image || '/social.jpg') } },
             { elem : 'meta', attrs : { property : 'og:type', content : 'website' } },
             { elem : 'meta', attrs : { property : 'og:site_name', content : 'site' } }
         ],
         styles : [
-            { elem : 'css', url : '/_index.css' },
-            { elem : 'css', url : 'http://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic' }
+            { elem : 'css', url : '/_index.css' }
         ],
         scripts : [
-            { elem : 'js', url : '/_index.js' },
-            // '<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter25194689 = new Ya.Metrika({id:25194689, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/25194689" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->'
-        ],
-        content : [
-            {
-                elem : 'header'
-            },
-            {
-                elem : 'content',
-                content : this.ctx.content
-            },
-            {
-                elem : 'footer'
-            }
+            { elem : 'js', url : '/_index.js' }
         ]
     });
 });
