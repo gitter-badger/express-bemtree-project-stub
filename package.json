@@ -17,6 +17,7 @@
     "lodash": "^2.4.1",
     "method-override": "^2.3.0",
     "morgan": "^1.5.1",
+    "multer": "^0.1.8",
     "slug": "^0.8.0",
     "validator": "^3.28.0"
   },
@@ -45,6 +46,7 @@
     "postinstall": "bower-npm-install --non-interactive",
     "deps": "bower-npm-install --non-interactive",
     "start": "node server.bundles/index/index.node.js",
+    "prestart": "enb make",
     "watch": "watch-run -p 'src/*.blocks/**' enb make",
     "lint": "jshint-groups && jscs . && csscomb -vl ."
   },
