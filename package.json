@@ -48,7 +48,8 @@
     "start": "node server.bundles/index/index.node.js",
     "prestart": "enb make",
     "watch": "watch-run -p 'src/*.blocks/**' enb make",
-    "lint": "jshint-groups && jscs . && csscomb -vl ."
+    "lint": "jshint-groups && jscs . && csscomb -vl .",
+    "clean": "enb make clean"
   },
   "private": true
 }
