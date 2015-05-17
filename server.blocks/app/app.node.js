@@ -46,8 +46,22 @@ app.use(session({
 
 var logsAccessPath = path.resolve(__dirname, '../../logs/access.log');
 
+// TODO: existsSync will be deprecated
 if(!fs.existsSync(logsAccessPath)) {
     fs.closeSync(fs.openSync(logsAccessPath, 'w'));
+}
+
+var simlinks = config.express.simlinks;
+if(simlinks && simlinks.length) {
+    simlinks.forEach(function(linkConf) {
+        var srcPath = path.resolve(__dirname, linkConf.src);
+        var destPath = path.resolve(__dirname, linkConf.dest);
+
+        // TODO: existsSync will be deprecated
+        if(!fs.existsSync(destPath)) {
+            fs.linkSync(srcPath, destPath);
+        }
+    });
 }
 
 var accessLogStream = fs.createWriteStream(logsAccessPath, { flag : 'a' });
