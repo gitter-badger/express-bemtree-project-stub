@@ -10,6 +10,7 @@ block('root').def()(function() {
     return applyCtx({
         block : 'page',
         favicon : '/favicon.ico',
+        title : this.data.title,
         mods : { view : this.data.view },
         head : [
             { elem : 'meta', attrs : { name : 'viewport', content : 'width=1000' } },

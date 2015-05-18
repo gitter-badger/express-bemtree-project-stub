@@ -30,8 +30,8 @@ modules.define('template', ['config'], function(provide, config) {
         };
     });
 
-    function template(bundle, data) {
-        return bundlesTemplates[bundle].BEMTREE.apply({ block : 'root', data : data })
+    function template(bundle, data, context) {
+        return bundlesTemplates[bundle].BEMTREE.apply({ block : 'root', data : data, context : context })
             .then(function(bemjson) {
 
                 var html;

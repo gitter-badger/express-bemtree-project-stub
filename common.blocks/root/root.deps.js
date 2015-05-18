@@ -3,8 +3,7 @@
         'i-bem'
     ],
     shouldDeps : [
-        {
-            block : 'page'
-        }
+        'page',
+        'test'
     ]
 })

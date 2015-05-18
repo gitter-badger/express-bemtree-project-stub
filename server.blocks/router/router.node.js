@@ -23,6 +23,17 @@ router.get('/error', function(req, res, next) {
             });
 });
 
+router.get('/context', function(req, res, next) {
+    template('desktop', { test : 'test' }, {
+        block : 'test',
+        content : 'block'
+    }).then(function(html) {
+        res.send(html);
+    }).fail(function(err) {
+        res.send(403, err);
+    });
+});
+
 provide(router);
 
 });
