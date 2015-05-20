@@ -5,10 +5,7 @@ var techs = {
         merge : require('enb/techs/file-merge')
     },
     bem : require('enb-bem-techs'),
-    css : {
-        stylus : require('enb-stylus/techs/css-stylus'),
-        stylusWithAutoprefixer : require('enb-stylus/techs/css-stylus-with-autoprefixer')
-    },
+    stylusWithAutoprefixer : require('enb-stylus/techs/css-stylus-with-autoprefixer'),
     js : require('./techs/js-borschik-include'),
     nodejs : require('enb-diverse-js/techs/node-js'),
     ym : require('enb-modules/techs/prepend-modules'),
@@ -16,14 +13,10 @@ var techs = {
         bemtree: require('enb-bemxjst/techs/bemtree'),
         bemhtml : require('enb-bemxjst/techs/bemhtml')
     },
-    html : {
-        bemhtml : require('enb-bemxjst/techs/html-from-bemjson')
-    },
     borschik : require('enb-borschik/techs/borschik')
 };
 
-var fs = require('fs'),
-    path = require('path');
+var path = require('path');
 
 module.exports = function(config) {
 
@@ -46,7 +39,12 @@ module.exports = function(config) {
 
         // Client techs
         nodeConfig.addTechs([
-            [techs.css.stylusWithAutoprefixer, { browsers : getBrowsers('desktop') }],
+            [techs.stylusWithAutoprefixer, { browsers : [
+                'last 2 versions',
+                'ie 10',
+                'ff 24',
+                'opera 12.16'
+            ]}],
             [techs.js, {
                 filesTarget : '?.js.files'
             }],
@@ -71,7 +69,7 @@ module.exports = function(config) {
                 sources : ['?.bemdecl.js', '?.js-js.bemdecl.js'],
                 target : '?.js.bemdecl.js'
             }],
-            [techs.bem.depsOld, {
+            [techs.bem.deps, {
                 target : '?.js.deps.js',
                 bemdeclFile : '?.js.bemdecl.js'
             }],
@@ -89,7 +87,7 @@ module.exports = function(config) {
                 sourceTech : 'js',
                 destTech : 'bemhtml'
             }],
-            [techs.bem.depsOld, {
+            [techs.bem.deps, {
                 target : '?.template.deps.js',
                 bemdeclFile : '?.template.bemdecl.js'
             }],
@@ -146,7 +144,7 @@ module.exports = function(config) {
         nodeConfig.addTech([techs.files.provide, { target : '?.bemdecl.js' }]);
         // Base techs
         nodeConfig.addTechs([
-            [techs.bem.depsOld],
+            [techs.bem.deps],
             [techs.bem.files]
         ]);
     });
@@ -173,32 +171,3 @@ module.exports = function(config) {
         });
     });
 };
-
-function getBrowsers(platform) {
-    switch(platform) {
-        case 'desktop':
-            return [
-                'last 2 versions',
-                'ie 10',
-                'ff 24',
-                'opera 12.16'
-            ];
-        case 'touch':
-            return [
-                'android 4',
-                'ios >= 5',
-                'ie 10'
-            ];
-        case 'touch-pad':
-            return [
-                'android 4',
-                'ios 5'
-            ];
-        case 'touch-phone':
-            return [
-                'android 4',
-                'ios 6',
-                'ie 10'
-            ];
-    }
-}
