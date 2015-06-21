@@ -2,18 +2,15 @@ modules.define('app',
 ['config', 'morgan', 'router'],
 function(provide, config, morgan, router) {
 
-var path = require('path');
-var fs = require('fs');
-var express = require('express');
-var app = express();
-
-// Парсим формы
-var multer  = require('multer');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
+var path = require('path'),
+    fs = require('fs'),
+    express = require('express'),
+    app = express(),
+    multer  = require('multer'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session');
 
 /*
  * SET
@@ -54,8 +51,8 @@ if(!fs.existsSync(logsAccessPath)) {
 var simlinks = config.express.simlinks;
 if(simlinks && simlinks.length) {
     simlinks.forEach(function(linkConf) {
-        var srcPath = path.resolve(__dirname, linkConf.src);
-        var destPath = path.resolve(__dirname, linkConf.dest);
+        var srcPath = path.resolve(__dirname, linkConf.src),
+            destPath = path.resolve(__dirname, linkConf.dest);
 
         // TODO: existsSync will be deprecated
         if(!fs.existsSync(destPath)) {

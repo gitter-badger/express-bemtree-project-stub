@@ -38,15 +38,14 @@ modules.define('template', ['config'], function(provide, config) {
 
                 try {
                     html = bundlesTemplates[bundle].BEMHTML.apply(bemjson);
-                } catch( e ) {
+                } catch(e) {
                     throw new Error(e);
                 }
 
                 return html;
 
             });
-    };
-
+    }
 
 provide(template);
 

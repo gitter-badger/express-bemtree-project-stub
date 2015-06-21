@@ -1,7 +1,7 @@
 modules.define('router', ['template', 'config'], function(provide, template, config) {
 
-var express = require('express');
-var router = express.Router();
+var express = require('express'),
+    router = express.Router();
 
 router.get('/', function(req, res, next) {
     template('desktop', { view : 'index', settings : config.settings })

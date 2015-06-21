@@ -1,22 +1,21 @@
-var techs = {
-    files : {
-        provide : require('enb/techs/file-provider'),
-        copy : require('enb/techs/file-copy'),
-        merge : require('enb/techs/file-merge')
-    },
-    bem : require('enb-bem-techs'),
-    stylusWithAutoprefixer : require('enb-stylus/techs/css-stylus-with-autoprefixer'),
-    js : require('./techs/js-borschik-include'),
-    nodejs : require('enb-diverse-js/techs/node-js'),
-    ym : require('enb-modules/techs/prepend-modules'),
-    engines : {
-        bemtree: require('enb-bemxjst/techs/bemtree'),
-        bemhtml : require('enb-bemxjst/techs/bemhtml')
-    },
-    borschik : require('enb-borschik/techs/borschik')
-};
-
-var path = require('path');
+var path = require('path'),
+    techs = {
+        files : {
+            provide : require('enb/techs/file-provider'),
+            copy : require('enb/techs/file-copy'),
+            merge : require('enb/techs/file-merge')
+        },
+        bem : require('enb-bem-techs'),
+        stylusWithAutoprefixer : require('enb-stylus/techs/css-stylus-with-autoprefixer'),
+        js : require('./techs/js-borschik-include'),
+        nodejs : require('enb-diverse-js/techs/node-js'),
+        ym : require('enb-modules/techs/prepend-modules'),
+        engines : {
+            bemtree : require('enb-bemxjst/techs/bemtree'),
+            bemhtml : require('enb-bemxjst/techs/bemhtml')
+        },
+        borschik : require('enb-borschik/techs/borschik')
+    };
 
 module.exports = function(config) {
 
@@ -35,7 +34,7 @@ module.exports = function(config) {
             { path : path.join('libs', 'bem-components', 'design', 'desktop.blocks'), check : false },
             { path : 'common.blocks', check : true },
             { path : 'desktop.blocks', check : true }
-        ]}]);
+        ] }]);
 
         // Client techs
         nodeConfig.addTechs([
@@ -44,7 +43,7 @@ module.exports = function(config) {
                 'ie 10',
                 'ff 24',
                 'opera 12.16'
-            ]}],
+            ] }],
             [techs.js, {
                 filesTarget : '?.js.files'
             }],
@@ -123,7 +122,7 @@ module.exports = function(config) {
         nodeConfig.addTech([techs.bem.levels, { levels : [
             { path : path.join('libs', 'bem-core', 'common.blocks'), check : false },
             { path : 'server.blocks', check : true }
-        ]}]);
+        ] }]);
 
         // NodeJs
         nodeConfig.addTechs([
@@ -152,8 +151,8 @@ module.exports = function(config) {
     config.mode('development', function() {
         config.nodes(['*.bundles/*'], function(nodeConfig) {
             nodeConfig.addTechs([
-                [techs.borschik, { sourceTarget: '?.bemtree.js', destTarget: '_?.bemtree.js', freeze: true, minify: false }],
-                [techs.borschik, { sourceTarget: '?.bemhtml.js', destTarget: '_?.bemhtml.js', freeze: true, minify: false }],
+                [techs.borschik, { sourceTarget : '?.bemtree.js', destTarget : '_?.bemtree.js', freeze : true, minify : false }],
+                [techs.borschik, { sourceTarget : '?.bemhtml.js', destTarget : '_?.bemhtml.js', freeze : true, minify : false }],
                 [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, minify : false }],
                 [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : false }]
             ]);
@@ -163,8 +162,8 @@ module.exports = function(config) {
     config.mode('production', function() {
         config.nodes(['*.bundles/*'], function(nodeConfig) {
             nodeConfig.addTechs([
-                [techs.borschik, { sourceTarget: '?.bemtree.js', destTarget: '_?.bemtree.js', freeze: true, minify: true }],
-                [techs.borschik, { sourceTarget: '?.bemhtml.js', destTarget: '_?.bemhtml.js', freeze: true, minify: true }],
+                [techs.borschik, { sourceTarget : '?.bemtree.js', destTarget : '_?.bemtree.js', freeze : true, minify : true }],
+                [techs.borschik, { sourceTarget : '?.bemhtml.js', destTarget : '_?.bemhtml.js', freeze : true, minify : true }],
                 [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, tech : 'cleancss', minify : true }],
                 [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : true }]
             ]);
