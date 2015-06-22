@@ -1,6 +1,6 @@
 modules.define('app',
-['config', 'morgan', 'router'],
-function(provide, config, morgan, router) {
+['config', 'log', 'router'],
+function(provide, config, log, router) {
 
 var path = require('path'),
     fs = require('fs'),
@@ -41,13 +41,6 @@ app.use(session({
     saveUninitialized : true
 }));
 
-var logsAccessPath = path.resolve(__dirname, '../../logs/access.log');
-
-// TODO: existsSync will be deprecated
-if(!fs.existsSync(logsAccessPath)) {
-    fs.closeSync(fs.openSync(logsAccessPath, 'w'));
-}
-
 var simlinks = config.express.simlinks;
 if(simlinks && simlinks.length) {
     simlinks.forEach(function(linkConf) {
@@ -61,11 +54,9 @@ if(simlinks && simlinks.length) {
     });
 }
 
-var accessLogStream = fs.createWriteStream(logsAccessPath, { flag : 'a' });
-
-app.use(morgan('short', { stream : accessLogStream }));
-
 app.use('/', express.static(path.resolve(__dirname, '../../public')));
+
+app.post('/system/log', log.middle);
 app.use(router);
 
 provide(app);

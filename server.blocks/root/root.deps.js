@@ -1,3 +1,6 @@
 ({
-    mustDeps : ['app']
+    mustDeps : [
+        'app',
+        'log'
+    ]
 })

@@ -4,6 +4,6 @@
     ],
     shouldDeps : [
         'router',
-        'morgan'
+        'log'
     ]
 })
