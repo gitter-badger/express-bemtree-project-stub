@@ -6,8 +6,8 @@ var path = require('path'),
             merge : require('enb/techs/file-merge')
         },
         bem : require('enb-bem-techs'),
-        stylusWithAutoprefixer : require('enb-stylus/techs/css-stylus-with-autoprefixer'),
-        js : require('./techs/js-borschik-include'),
+        stylus : require('enb-stylus/techs/stylus'),
+        js : require('enb-borschik/techs/js-borschik-include'),
         nodejs : require('enb-diverse-js/techs/node-js'),
         ym : require('enb-modules/techs/prepend-modules'),
         engines : {
@@ -38,14 +38,15 @@ module.exports = function(config) {
 
         // Client techs
         nodeConfig.addTechs([
-            [techs.stylusWithAutoprefixer, { browsers : [
-                'last 2 versions',
-                'ie 10',
-                'ff 24',
-                'opera 12.16'
-            ] }],
+            [techs.stylus, {
+                target : '?.css',
+                autoprefixer : {
+                    browsers : ['ie >= 10', 'last 2 versions', 'opera 12.1', '> 2%']
+                }
+            }],
             [techs.js, {
-                filesTarget : '?.js.files'
+                filesTarget : '?.js.files',
+                target : '?.browser.js',
             }],
             [techs.files.merge, {
                 target : '?.pre.js',
