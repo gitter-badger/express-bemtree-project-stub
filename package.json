@@ -39,6 +39,7 @@
     "watch-run": "^1.2.2"
   },
   "scripts": {
+    "postinstall": "npm run deps",
     "deps": "bower i",
     "start": "node server.bundles/index/index.node.js",
     "prestart": "enb make",
