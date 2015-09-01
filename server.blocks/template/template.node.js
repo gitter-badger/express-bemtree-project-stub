@@ -15,6 +15,7 @@ modules.define('template', ['config'], function(provide, config) {
             context = vm.createContext({
                 console : console,
                 Vow : vow,
+                setImmediate : setImmediate,
                 borschik : {
                     link : function(i) {
                         return i;
