@@ -1,6 +1,0 @@
-({
-    mustDeps : [
-        'app',
-        'log'
-    ]
-})

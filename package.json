@@ -41,7 +41,7 @@
   "scripts": {
     "postinstall": "npm run deps",
     "deps": "bower i",
-    "start": "node server.bundles/index/index.node.js",
+    "start": "node server/app.js",
     "prestart": "enb make",
     "watch": "watch-run -p 'src/*.blocks/**' enb make",
     "lint": "jshint-groups && jscs .",
