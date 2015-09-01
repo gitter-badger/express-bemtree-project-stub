@@ -25,7 +25,7 @@ module.exports = {
                 browser : true,
                 predef : ['modules']
             },
-            includes : ['*.blocks/**/*.js'],
+            includes : ['*.blocks/**/*.browser.js'],
             excludes : [
                 '**/*.i18n/*.js',
                 '**/*.bem/*.js',

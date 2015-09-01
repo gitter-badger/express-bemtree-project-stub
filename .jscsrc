@@ -3,18 +3,13 @@
     "preset": "bem",
 
     "excludeFiles": [
-        ".bem/cache/**",
         ".enb/tmp/**",
         ".git/**",
-        "*.docs/**",
-        "*.examples/**",
-        "*.specs/**",
-        "*.tmpl-specs/**",
-        "*.tests/**",
-        "*.pages/**",
-        "**/*.i18n/**",
+        "*.bundles/**",
         "libs/**",
-        "node_modules/**"
+        "node_modules/**",
+        "public/**"
     ],
-    "fileExtensions": [".js", ".bemtree", ".bemhtml"]
+    "fileExtensions": [".js", ".bemtree", ".bemhtml"],
+    "requireMultipleVarDecl": false
 }
