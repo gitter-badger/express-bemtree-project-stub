@@ -1,7 +1,3 @@
-modules.define('app',
-['config', 'log', 'router'],
-function(provide, config, log, router) {
-
 var path = require('path'),
     fs = require('fs'),
     express = require('express'),
@@ -10,7 +6,10 @@ var path = require('path'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session');
+    session = require('express-session'),
+    config = require('./config.js'),
+    log = require('./log.js'),
+    router = require('./router.js');
 
 /*
  * SET
@@ -23,7 +22,7 @@ app.set('handle', process.env.PORT || config.express.port);
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended : true })); // for parsing application/x-www-form-urlencoded
 app.use(multer({
-    dest : path.resolve(__dirname, '../../public/uploads/'),
+    dest : path.resolve(__dirname, '../public/uploads/'),
     includeEmptyFields : true
 }));
 app.use(methodOverride(function(req, res) {
@@ -54,11 +53,14 @@ if(simlinks && simlinks.length) {
     });
 }
 
-app.use('/', express.static(path.resolve(__dirname, '../../public')));
+app.use('/', express.static(path.resolve(__dirname, '../public')));
 
 app.post('/system/log', log.middle);
 app.use(router);
 
-provide(app);
-
+app.listen(app.get('handle'), function() {
+    log.info('start worker: ' + process.env.WORKER_ID);
+    log.info('NODE_ENV: ' + process.env.NODE_ENV);
+    log.info('start PID: ' + process.pid);
+    log.verbose('Express server listening on port ' + app.get('handle'));
 });

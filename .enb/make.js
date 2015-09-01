@@ -15,7 +15,8 @@ var path = require('path'),
             bemhtml : require('enb-bemxjst/techs/bemhtml')
         },
         borschik : require('enb-borschik/techs/borschik')
-    };
+    },
+    isProd = process.env.NODE_ENV === 'production';
 
 module.exports = function(config) {
 
@@ -112,34 +113,7 @@ module.exports = function(config) {
         nodeConfig.addTargets([
             '_?.css', '_?.js', '_?.bemhtml.js', '_?.bemtree.js'
         ]);
-    });
 
-    /**
-     * SERVER CONFIG
-     */
-    config.nodes(['server.bundles/*'], function(nodeConfig) {
-
-        // Configure Levels
-        nodeConfig.addTech([techs.bem.levels, { levels : [
-            { path : path.join('libs', 'bem-core', 'common.blocks'), check : false },
-            { path : 'server.blocks', check : true }
-        ] }]);
-
-        // NodeJs
-        nodeConfig.addTechs([
-            [techs.nodejs, { target : '?.pre.node.js' }],
-            [techs.ym, { target : '?.node.js', source : '?.pre.node.js' }]
-        ]);
-
-        nodeConfig.addTargets([
-            '?.node.js'
-        ]);
-    });
-
-    /**
-     * COMMON CONFIG
-     */
-    config.nodes(['*.bundles/*'], function(nodeConfig) {
         // Start file
         nodeConfig.addTech([techs.files.provide, { target : '?.bemdecl.js' }]);
         // Base techs
@@ -147,27 +121,12 @@ module.exports = function(config) {
             [techs.bem.deps],
             [techs.bem.files]
         ]);
-    });
 
-    config.mode('development', function() {
-        config.nodes(['*.bundles/*'], function(nodeConfig) {
-            nodeConfig.addTechs([
-                [techs.borschik, { sourceTarget : '?.bemtree.js', destTarget : '_?.bemtree.js', freeze : true, minify : false }],
-                [techs.borschik, { sourceTarget : '?.bemhtml.js', destTarget : '_?.bemhtml.js', freeze : true, minify : false }],
-                [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, minify : false }],
-                [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : false }]
-            ]);
-        });
-    });
-
-    config.mode('production', function() {
-        config.nodes(['*.bundles/*'], function(nodeConfig) {
-            nodeConfig.addTechs([
-                [techs.borschik, { sourceTarget : '?.bemtree.js', destTarget : '_?.bemtree.js', freeze : true, minify : true }],
-                [techs.borschik, { sourceTarget : '?.bemhtml.js', destTarget : '_?.bemhtml.js', freeze : true, minify : true }],
-                [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, tech : 'cleancss', minify : true }],
-                [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : true }]
-            ]);
-        });
+        nodeConfig.addTechs([
+            [techs.borschik, { sourceTarget : '?.bemtree.js', destTarget : '_?.bemtree.js', freeze : true, minify : isProd }],
+            [techs.borschik, { sourceTarget : '?.bemhtml.js', destTarget : '_?.bemhtml.js', freeze : true, minify : isProd }],
+            [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, minify : isProd }],
+            [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : isProd }]
+        ]);
     });
 };

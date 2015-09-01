@@ -1,16 +1,14 @@
-modules.define('config', function(provide) {
-
-provide({
+module.exports = {
     express : {
         port : '3000',
         simlinks : [
             {
-                src  : '../../desktop.bundles/index/_index.css',
-                dest : '../../public/_index.css'
+                src  : '../desktop.bundles/index/_index.css',
+                dest : '../public/_index.css'
             },
             {
-                src  : '../../desktop.bundles/index/_index.js',
-                dest : '../../public/_index.js'
+                src  : '../desktop.bundles/index/_index.js',
+                dest : '../public/_index.js'
             }
         ]
     },
@@ -42,6 +40,4 @@ provide({
             }
         }
     }
-});
-
-});
+};

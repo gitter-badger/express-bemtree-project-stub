@@ -77,35 +77,6 @@ module.exports = {
                 ]
             },
             includes : ['*.blocks/**/*.bemhtml']
-        },
-
-        bhjs : {
-            options : {
-                node : true
-            },
-            includes : [
-                '*.blocks/**/*.bh.js',
-                'design/*.blocks/**/*.bh.js'
-            ]
-        },
-
-        bemjsonjs : {
-            options : {
-                asi : true
-            },
-            includes : ['*.pages/**/*.bemjson.js']
-        },
-
-        nodejs : {
-            options : {
-                node : true
-            },
-            includes : ['**/.bem/**/*.js'],
-            excludes : [
-                '.bem/cache/**',
-                'libs/**',
-                'node_modules/**'
-            ]
         }
     }
 };

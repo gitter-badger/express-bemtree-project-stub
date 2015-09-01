@@ -1,7 +1,7 @@
-modules.define('router', ['template', 'config'], function(provide, template, config) {
-
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    template = require('./template.js'),
+    config = require('./config.js');
 
 router.get('/', function(req, res, next) {
     template('desktop', { view : 'index', settings : config.settings })
@@ -34,6 +34,4 @@ router.get('/context', function(req, res, next) {
     });
 });
 
-provide(router);
-
-});
+module.exports = router;
