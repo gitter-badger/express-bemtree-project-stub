@@ -9,8 +9,8 @@ var bundles = config.bem.bundles,
     bundlesTemplates = {};
 
 bundles.forEach(function(bundle) {
-    var pathToBundle = path.resolve(bundle + '.bundles', 'index'),
-        bemtreeTemplate = fs.readFileSync(path.join(pathToBundle, '_index.bemtree.js'), 'utf-8'),
+    var pathToBundle = path.resolve('./bundles', bundle),
+        bemtreeTemplate = fs.readFileSync(path.join(pathToBundle, '_' + bundle + '.bemtree.js'), 'utf-8'),
         context = vm.createContext({
             console : console,
             Vow : vow,
@@ -25,7 +25,7 @@ bundles.forEach(function(bundle) {
     vm.runInContext(bemtreeTemplate, context);
 
     bundlesTemplates[bundle] = {
-        BEMHTML : require(path.join(pathToBundle, '_index.bemhtml.js')).BEMHTML,
+        BEMHTML : require(path.join(pathToBundle, '_' + bundle + '.bemhtml.js')).BEMHTML,
         BEMTREE : context.BEMTREE
     };
 });

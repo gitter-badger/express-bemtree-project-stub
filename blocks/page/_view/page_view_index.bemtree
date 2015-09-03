@@ -1,0 +1,30 @@
+block('page').mod('view', 'index').content()(function() {
+    return [
+        {
+            elem : 'header',
+            content : {
+                tag : 'h1',
+                content : 'Index'
+            }
+        },
+        {
+            elem : 'content',
+            content : [
+                {
+                    block : 'input',
+                    mods : { theme : 'islands', size : 'xl' },
+                    placeholder : 'Placeholder'
+                },
+                {
+                    block : 'button',
+                    mods : { theme : 'islands', size : 'xl', type : 'submit' },
+                    text : 'Button'
+                }
+            ]
+        },
+        {
+            elem : 'footer',
+            content : 'Footer'
+        }
+    ];
+});

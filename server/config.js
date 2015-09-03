@@ -3,17 +3,17 @@ module.exports = {
         port : '3000',
         simlinks : [
             {
-                src  : '../desktop.bundles/index/_index.css',
+                src  : '../bundles/index/_index.css',
                 dest : '../public/_index.css'
             },
             {
-                src  : '../desktop.bundles/index/_index.js',
+                src  : '../bundles/index/_index.js',
                 dest : '../public/_index.js'
             }
         ]
     },
     bem : {
-        bundles : ['desktop']
+        bundles : ['index']
     },
     settings : {
         baseUrl : 'http://examples.com'

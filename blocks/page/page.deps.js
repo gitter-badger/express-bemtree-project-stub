@@ -1,6 +1,6 @@
 ({
     mustDeps : [
-        'i-bem'
+        { block : 'i-bem' }
     ],
     shouldDeps : [
         {
@@ -13,4 +13,4 @@
             elems : ['header', 'content', 'footer']
         }
     ]
-})
+});

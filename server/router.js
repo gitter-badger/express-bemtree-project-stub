@@ -4,7 +4,7 @@ var express = require('express'),
     config = require('./config.js');
 
 router.get('/', function(req, res, next) {
-    template('desktop', { view : 'index', settings : config.settings })
+    template('index', { view : 'index', title: 'Index Page', settings : config.settings })
         .then(function(html) {
             res.send(html);
         })
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/error', function(req, res, next) {
-    template('desktop', { view : 'error', settings : config.settings })
+    template('index', { view : 'error', title: 'Error Page', settings : config.settings })
             .then(function(html) {
                 res.send(html);
             })
@@ -24,7 +24,7 @@ router.get('/error', function(req, res, next) {
 });
 
 router.get('/context', function(req, res, next) {
-    template('desktop', { test : 'test' }, {
+    template('index', { test : 'test' }, {
         block : 'test',
         content : 'block'
     }).then(function(html) {

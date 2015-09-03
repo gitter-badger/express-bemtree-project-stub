@@ -1,5 +1,4 @@
-var path = require('path'),
-    techs = {
+var techs = {
         files : {
             provide : require('enb/techs/file-provider'),
             copy : require('enb/techs/file-copy'),
@@ -15,30 +14,34 @@ var path = require('path'),
             bemhtml : require('enb-bemxjst/techs/bemhtml')
         },
         borschik : require('enb-borschik/techs/borschik')
-    },
-    isProd = process.env.NODE_ENV === 'production';
+    };
 
 module.exports = function(config) {
 
-    /**
-     * CLIENT CONFIG
-     */
-    config.nodes(['desktop.bundles/*'], function(nodeConfig) {
+    var isProd = process.env.NODE_ENV === 'production';
+
+    config.nodes(['bundles/*'], function(nodeConfig) {
 
         // Configure Levels
-        nodeConfig.addTech([techs.bem.levels, { levels : [
-            { path : path.join('libs', 'bem-core', 'common.blocks'), check : false },
-            { path : path.join('libs', 'bem-core', 'desktop.blocks'), check : false },
-            { path : path.join('libs', 'bem-components', 'common.blocks'), check : false },
-            { path : path.join('libs', 'bem-components', 'desktop.blocks'), check : false },
-            { path : path.join('libs', 'bem-components', 'design', 'common.blocks'), check : false },
-            { path : path.join('libs', 'bem-components', 'design', 'desktop.blocks'), check : false },
-            { path : 'common.blocks', check : true },
-            { path : 'desktop.blocks', check : true }
-        ] }]);
-
-        // Client techs
         nodeConfig.addTechs([
+            [techs.bem.levels, { levels : [
+                { path : 'libs/bem-core/common.blocks', check : false },
+                { path : 'libs/bem-core/desktop.blocks', check : false },
+                { path : 'libs/bem-components/common.blocks', check : false },
+                { path : 'libs/bem-components/desktop.blocks', check : false },
+                { path : 'libs/bem-components/design/common.blocks', check : false },
+                { path : 'libs/bem-components/design/desktop.blocks', check : false },
+                { path : 'blocks', check : true }
+            ] }],
+
+            // Start file
+            [techs.files.provide, { target : '?.bemdecl.js' }],
+
+            // Base techs
+            [techs.bem.deps],
+            [techs.bem.files],
+
+            // Client techs
             [techs.stylus, {
                 target : '?.css',
                 autoprefixer : {
@@ -46,8 +49,9 @@ module.exports = function(config) {
                 }
             }],
             [techs.js, {
-                filesTarget : '?.js.files',
                 target : '?.browser.js',
+                sourceSuffixes : ['vanilla.js', 'browser.js', 'js'],
+                filesTarget : '?.js.files'
             }],
             [techs.files.merge, {
                 target : '?.pre.js',
@@ -56,11 +60,9 @@ module.exports = function(config) {
             [techs.ym, {
                 source : '?.pre.js',
                 target : '?.js'
-            }]
-        ]);
+            }],
 
-        // js techs
-        nodeConfig.addTechs([
+            // js techs
             [techs.bem.depsByTechToBemdecl, {
                 target : '?.js-js.bemdecl.js',
                 sourceTech : 'js',
@@ -78,11 +80,9 @@ module.exports = function(config) {
                 depsFile : '?.js.deps.js',
                 filesTarget : '?.js.files',
                 dirsTarget : '?.js.dirs'
-            }]
-        ]);
+            }],
 
-        // Client Template Engine
-        nodeConfig.addTechs([
+            // Client Template Engine
             [techs.bem.depsByTechToBemdecl, {
                 target : '?.template.bemdecl.js',
                 sourceTech : 'js',
@@ -101,32 +101,21 @@ module.exports = function(config) {
                 target : '?.browser.bemhtml.js',
                 filesTarget : '?.template.files',
                 devMode : false
-            }]
-        ]);
+            }],
 
-        // Build templates
-        nodeConfig.addTechs([
+            // Templates
             [techs.engines.bemtree, { devMode : false }],
-            [techs.engines.bemhtml, { devMode : false }]
+            [techs.engines.bemhtml, { devMode : false }],
+
+            // Borschik dist files
+            [techs.borschik, { source : '?.bemtree.js', target : '_?.bemtree.js', freeze : true, minify : isProd }],
+            [techs.borschik, { source : '?.bemhtml.js', target : '_?.bemhtml.js', freeze : true, minify : isProd }],
+            [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, minify : isProd }],
+            [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : isProd }]
         ]);
 
         nodeConfig.addTargets([
             '_?.css', '_?.js', '_?.bemhtml.js', '_?.bemtree.js'
-        ]);
-
-        // Start file
-        nodeConfig.addTech([techs.files.provide, { target : '?.bemdecl.js' }]);
-        // Base techs
-        nodeConfig.addTechs([
-            [techs.bem.deps],
-            [techs.bem.files]
-        ]);
-
-        nodeConfig.addTechs([
-            [techs.borschik, { sourceTarget : '?.bemtree.js', destTarget : '_?.bemtree.js', freeze : true, minify : isProd }],
-            [techs.borschik, { sourceTarget : '?.bemhtml.js', destTarget : '_?.bemhtml.js', freeze : true, minify : isProd }],
-            [techs.borschik, { source : '?.css', target : '_?.css', freeze : true, minify : isProd }],
-            [techs.borschik, { source : '?.js', target : '_?.js', freeze : true, minify : isProd }]
         ]);
     });
 };

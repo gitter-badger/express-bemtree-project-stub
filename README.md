@@ -5,3 +5,8 @@ $ git clone https://github.com/voischev/express-bemtree-project-stub.git new-pro
 $ cd new-project
 $ npm i && npm start
 ```
+
+production build
+```
+npm run build
+```
