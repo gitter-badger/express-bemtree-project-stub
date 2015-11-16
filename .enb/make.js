@@ -6,8 +6,8 @@ var techs = {
         },
         bem : require('enb-bem-techs'),
         stylus : require('enb-stylus/techs/stylus'),
-        js : require('enb-borschik/techs/js-borschik-include'),
-        nodejs : require('enb-diverse-js/techs/node-js'),
+        js : require('enb-js/techs/browser-js'),
+        nodejs : require('enb-js/techs/node-js'),
         ym : require('enb-modules/techs/prepend-modules'),
         engines : {
             bemtree : require('enb-bemxjst/techs/bemtree'),
